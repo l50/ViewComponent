@@ -4,7 +4,7 @@
     <string name="app_name">AndroPuppet</string>
     <string-array name="settings_array">
         <item>Server Settings</item>
-        <item>Device Settings</item>
+        <item>Client Settings</item>
     </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

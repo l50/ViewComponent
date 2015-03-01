@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -57,6 +62,8 @@ public class MainActivity extends Activity
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mPlanetTitles;
+
+    public static final String ARG_PLANET_NUMBER = "planet_number";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -169,12 +176,34 @@ public class MainActivity extends Activity
         }
     }
 
+    private String getIpAddress(Context context)
+    {
+        WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+        String ipAddress = Formatter.formatIpAddress(ip);
+        System.out.println(ip);
+        return ipAddress;
+    }
+
     private void selectItem(int position)
     {
-        // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
+        Fragment fragment = null;
         Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+
+        switch (position)
+        {
+            case 0:
+                fragment = new server_settings_Fragment();
+                break;
+            case 1:
+                fragment = new client_settings_Fragment();
+                args.putString("ip", getIpAddress(this));
+                fragment.setArguments(args);
+                break;
+        }
+        // update the main content by replacing fragments
+        args.putInt(ARG_PLANET_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -214,36 +243,40 @@ public class MainActivity extends Activity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-//    public static class ClientSettings extends Fragment
-//    {
-//        public ClientSettings()
-//        {
-//            setContentView(R.layout.client_settings_layout);
-//
-//        }
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                                 Bundle savedInstanceState)
-//        {
-//            View clientView = inflater.inflate(R.layout.server_settings_layout, container, false);
-//            TextView ipAddress = (TextView) findViewById(R.id.clientip);
-//            ipAddress.setText("Sup Bitch");
-//
-//            return clientView;
-//        }
-//
-////        WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
-////        String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
-//    }
+
+
 
     /**
      * Fragment that appears in the "content_frame", shows a planet
      */
-    public static class PlanetFragment extends Fragment
+    public static class client_settings_Fragment extends Fragment
     {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+        String ip;
+        public client_settings_Fragment()
+        {
+            // Empty constructor required for fragment subclasses
+        }
 
-        public PlanetFragment()
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState)
+        {
+            View rootView = inflater.inflate(R.layout.client_settings_layout, container, false);
+            int i = getArguments().getInt(ARG_PLANET_NUMBER);
+            String listItem = getResources().getStringArray(R.array.settings_array)[i];
+
+            System.out.println("WTF");
+            String ip = this.getArguments().getString("ip");
+            TextView txtTitle = (TextView) rootView.findViewById(R.id.clientip);
+            txtTitle.setText("IP Address: " + ip);
+            getActivity().setTitle(listItem);
+            return rootView;
+        }
+    }
+
+    public static class server_settings_Fragment extends Fragment
+    {
+        public server_settings_Fragment()
         {
             // Empty constructor required for fragment subclasses
         }
