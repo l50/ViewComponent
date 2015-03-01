@@ -7,7 +7,33 @@
         android:id="@+id/clientip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:text="@string/ip_addr"
+        android:layout_above="@+id/clientnetmask"
+        android:layout_alignLeft="@+id/clientgw"
+        android:layout_alignStart="@+id/clientgw"/>
+
+    <TextView
+        android:id="@+id/clientnetmask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ip_addr"
+        android:layout_above="@+id/clientgw"
+        android:layout_alignLeft="@+id/clientip"
+        android:layout_alignStart="@+id/clientip"/>
+
+    <TextView
+        android:id="@+id/clientgw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ip_addr"
         android:layout_centerVertical="true"
-        android:text="@string/ip_addr"/>
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/clientdns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ip_addr"
+        android:layout_below="@+id/clientgw"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

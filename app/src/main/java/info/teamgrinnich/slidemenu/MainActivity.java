@@ -7,6 +7,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.DhcpInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -176,14 +177,21 @@ public class MainActivity extends Activity
         }
     }
 
-    private String getIpAddress(Context context)
+    private String[] getNetworkInformation(Context context)
     {
+        String[] output = new String[4];
+
         WifiManager wifiMgr = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
         int ip = wifiInfo.getIpAddress();
         String ipAddress = Formatter.formatIpAddress(ip);
-        System.out.println(ip);
-        return ipAddress;
+        output[0] = ipAddress;
+        // Get DNS Server
+        final DhcpInfo dhcp = wifiMgr.getDhcpInfo();
+        output[1] = Formatter.formatIpAddress(dhcp.netmask);
+        output[2] = Formatter.formatIpAddress(dhcp.gateway);
+        output[3] = Formatter.formatIpAddress(dhcp.dns1);
+        return output;
     }
 
     private void selectItem(int position)
@@ -198,7 +206,7 @@ public class MainActivity extends Activity
                 break;
             case 1:
                 fragment = new client_settings_Fragment();
-                args.putString("ip", getIpAddress(this));
+                args.putStringArray("netInfo", getNetworkInformation(this));
                 fragment.setArguments(args);
                 break;
         }
@@ -265,10 +273,23 @@ public class MainActivity extends Activity
             int i = getArguments().getInt(ARG_PLANET_NUMBER);
             String listItem = getResources().getStringArray(R.array.settings_array)[i];
 
-            System.out.println("WTF");
-            String ip = this.getArguments().getString("ip");
-            TextView txtTitle = (TextView) rootView.findViewById(R.id.clientip);
-            txtTitle.setText("IP Address: " + ip);
+            String[] networkInfo = this.getArguments().getStringArray("netInfo");
+            String ip = networkInfo[0];
+            TextView ipAddress = (TextView) rootView.findViewById(R.id.clientip);
+            ipAddress.setText("IP Address: " + ip);
+
+            String netMask = networkInfo[1];
+            TextView netMaskAddr = (TextView) rootView.findViewById(R.id.clientnetmask);
+            netMaskAddr.setText("Subnet Mask: " + netMask);
+
+            String gateway = networkInfo[2];
+            TextView gatewayAddr = (TextView) rootView.findViewById(R.id.clientgw);
+            gatewayAddr.setText("Default Gateway: " + gateway);
+
+            String dns = networkInfo[3];
+            TextView dnsServer = (TextView) rootView.findViewById(R.id.clientdns);
+            dnsServer.setText("DNS Server: " + dns);
+
             getActivity().setTitle(listItem);
             return rootView;
         }
