@@ -1,13 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal">
+                android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edittextip"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1"
-        android:id="@+id/textView"/>
+        android:layout_marginTop="61dp"
+        android:ems="10"
+        android:text="@string/ip_addr"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edittextsm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:ems="10"
+        android:layout_below="@+id/edittextip"
+        android:text="@string/subnet_mask"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edittextgw"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:ems="10"
+        android:layout_below="@+id/edittextsm"
+        android:text="@string/gw"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/edittextdns"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:ems="10"
+        android:layout_below="@+id/edittextgw"
+        android:text="@string/dns"
+        android:inputType="text"/>
+
+
 </RelativeLayout>
