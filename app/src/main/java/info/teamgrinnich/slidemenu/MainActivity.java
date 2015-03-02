@@ -23,9 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This example illustrates a common usage of the DrawerLayout widget
@@ -251,15 +255,8 @@ public class MainActivity extends Activity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-
-
-
-    /**
-     * Fragment that appears in the "content_frame", shows a planet
-     */
     public static class client_settings_Fragment extends Fragment
     {
-        String ip;
         public client_settings_Fragment()
         {
             // Empty constructor required for fragment subclasses
@@ -295,6 +292,35 @@ public class MainActivity extends Activity
         }
     }
 
+    /**
+     * Validate IP address
+     *
+     * @param ip ip address to validate
+     * @return whether or not the ip address is valid
+     */
+    private static boolean isValidIP(String ip)
+    {
+        Pattern validIp = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}" +
+                "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+        Matcher matcher = validIp.matcher(ip);
+        return matcher.matches();
+    }
+
+    /**
+     * Validate Subnet Mask
+     *
+     * @param subnetMask subnet mask to validate
+     * @return whether or not the subnet mask is valid
+     */
+    private static boolean isValidSubnet(String subnetMask)
+    {
+        Pattern validSubnet = Pattern.compile("^((128|192|224|240|248|252|254)\\.0\\.0\\.0)|" +
+                "(255\\.(((0|128|192|224|240|248|252|254)\\.0\\.0)|(255\\.(((0|128|192|224" +
+                "|240|248|252|254)\\.0)|255\\.(0|128|192|224|240|248|252|254)))))$");
+        Matcher matcher = validSubnet.matcher(subnetMask);
+        return matcher.matches();
+    }
+
     public static class server_settings_Fragment extends Fragment
     {
         public server_settings_Fragment()
@@ -310,9 +336,43 @@ public class MainActivity extends Activity
             int i = getArguments().getInt(ARG_PLANET_NUMBER);
             String listItem = getResources().getStringArray(R.array.settings_array)[i];
 
-//            int imageId = getResources().getIdentifier(listItem.toLowerCase(Locale.getDefault()),
-//                    "drawable", getActivity().getPackageName());
-//            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
+            final EditText ipText = (EditText) rootView.findViewById(R.id.edittextip);
+            final EditText smText = (EditText) rootView.findViewById(R.id.edittextsm);
+            final EditText gwText = (EditText) rootView.findViewById(R.id.edittextgw);
+            final EditText dnsText = (EditText) rootView.findViewById(R.id.edittextdns);
+
+            rootView.findViewById(R.id.serverConnectButton).setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    final String ip = ipText.getText().toString();
+                    if (!isValidIP(ip))
+                    {
+                        ipText.setError("Invalid IP");
+                    }
+
+                    final String sm = smText.getText().toString();
+                    if (!isValidSubnet(sm))
+                    {
+                        smText.setError("Invalid Subnet Mask");
+                    }
+
+                    final String gw = gwText.getText().toString();
+                    if (!isValidIP(gw))
+                    {
+                        gwText.setError("Invalid Gateway");
+                    }
+
+                    final String dns = dnsText.getText().toString();
+                    if (!isValidIP(dns))
+                    {
+                        dnsText.setError("Invalid DNS Server");
+                    }
+                }
+            });
+
+
             getActivity().setTitle(listItem);
             return rootView;
         }

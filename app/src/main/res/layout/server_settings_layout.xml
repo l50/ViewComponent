@@ -2,44 +2,93 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ip_addr"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/gw"
+        android:layout_alignStart="@+id/gw"/>
+
     <EditText
         android:id="@+id/edittextip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="39dp"
         android:ems="10"
-        android:text="@string/ip_addr"
-        android:inputType="text"/>
+        android:inputType="phone"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/sm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/subnet_mask"
+        android:layout_below="@+id/edittextip"
+        android:layout_alignLeft="@+id/ip"
+        android:layout_alignStart="@+id/ip"/>
 
     <EditText
         android:id="@+id/edittextsm"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
-        android:layout_below="@+id/edittextip"
-        android:text="@string/subnet_mask"
-        android:inputType="text"/>
+        android:inputType="phone"
+        android:layout_below="@+id/sm"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/gw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gw"
+        android:layout_below="@+id/edittextsm"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"/>
+
+    <TextView
+        android:id="@+id/dns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dns"
+        android:layout_below="@+id/edittextgw"
+        android:layout_alignRight="@+id/sm"
+        android:layout_alignEnd="@+id/sm"/>
+
 
     <EditText
         android:id="@+id/edittextgw"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
         android:ems="10"
-        android:layout_below="@+id/edittextsm"
-        android:text="@string/gw"
-        android:inputType="text"/>
+        android:inputType="phone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
     <EditText
         android:id="@+id/edittextdns"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
         android:ems="10"
-        android:layout_below="@+id/edittextgw"
-        android:text="@string/dns"
-        android:inputType="text"/>
+        android:inputType="phone"
+        android:layout_below="@+id/dns"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect"
+        android:id="@+id/serverConnectButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 
 </RelativeLayout>
