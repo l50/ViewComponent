@@ -1,5 +1,5 @@
 # ViewComponent
-This ViewComponent outlines how to create a sliding menu that allows you to configure IP settings for connecting to an external machine. It will also display the current network information for the phone as well, for troubleshooting purposes.
+This ViewComponent outlines how to create a sliding menu that allows you to configure IP settings for connecting to an external machine. It will also display the current network information for the Android device as well.
 
 ## Features
 ### Server
