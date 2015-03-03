@@ -7,7 +7,7 @@
         android:id="@+id/clientip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ip_addr"
+        android:text="@string/subnet_mask"
         android:layout_below="@+id/clientgw"
         android:layout_centerHorizontal="true"/>
 
@@ -15,7 +15,7 @@
         android:id="@+id/clientnetmask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/subnet_mask"
+        android:text="@string/gw"
         android:layout_below="@+id/clientip"
         android:layout_centerHorizontal="true"/>
 
@@ -23,7 +23,7 @@
         android:id="@+id/clientgw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gw"
+        android:text="@string/ip_addr"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="234dp"/>
