@@ -7,7 +7,6 @@ This ViewComponent outlines how to create a sliding menu that allows you to conf
 * It will provide a connect button on the bottom of the screen.
 ![Server Connection Screen](https://github.com/l50/ViewComponent/blob/master/Screenshots/1.png "Server Settings")
 ![Server Connection Screen](https://github.com/l50/ViewComponent/blob/master/Screenshots/2.png "IP input validation")
-![Server Connection Screen](https://github.com/l50/ViewComponent/blob/master/Screenshots/3.png "Subnet input validation")
 ![Server Connection Screen](https://github.com/l50/ViewComponent/blob/master/Screenshots/5.png "All fields filled out")
 
 ![Server Connection Screen](https://github.com/l50/ViewComponent/blob/master/Screenshots/6.png "Sliding menu")
