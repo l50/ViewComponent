@@ -283,9 +283,9 @@ public class MainActivity extends Activity
      */
     public static class server_settings_Fragment extends Fragment
     {
+        // Empty constructor required for fragment subclasses
         public server_settings_Fragment()
         {
-            // Empty constructor required for fragment subclasses
         }
 
         @Override
@@ -331,7 +331,6 @@ public class MainActivity extends Activity
                     }
                 }
             });
-
 
             getActivity().setTitle(listItem);
             return rootView;
